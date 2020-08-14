@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import Todo from "./components/Todo";
+import React, { useState, useEffect } from "react";
+import TodoList from "./components/TodoList";
 import Form from "./components/AddTodo";
 const uuid = require("uuid");
 
 function App() {
-  const [todos, setTodos] = useState([
-    { title: "Learn React", id: uuid.v1(), completed: true },
-    { title: "Learn Node", id: uuid.v4() },
-  ]);
+  const [todos, setTodos] = useState([]);
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=5")
+      .then((response) => response.json())
+      .then((json) => setTodos([...json]));
+  }, []);
+
   const addTodo = (title) => {
     setTodos([...todos, { title, id: uuid.v1() }]);
   };
@@ -27,7 +30,7 @@ function App() {
   return (
     <div className="App">
       <Form {...props} />
-      <Todo {...props} />
+      <TodoList {...props} />
     </div>
   );
 }

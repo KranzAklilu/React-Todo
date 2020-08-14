@@ -1,23 +1,22 @@
 import React from "react";
-import TodoItems from "./TodoItems";
 
-const Todo = (props) => {
-  const { todos, removeTodo, completedTodo } = props;
-  return todos.length ? (
+const TodoItems = (props) => {
+  const { todo, completedTodo, removeTodo } = props;
+  const completedStyle = {
+    textDecoration: "line-through",
+  };
+  const notCompletedStyle = {
+    textDecoration: "none",
+  };
+  const style = todo.completed ? completedStyle : notCompletedStyle;
+
+  return (
     <div>
-      <ul>
-        {todos.map((todo) => {
-          const props = { todo, removeTodo, completedTodo };
-          return <TodoItems key={todo.id} {...props} />;
-        })}
-        {console.log("run")}
-      </ul>
-    </div>
-  ) : (
-    <div>
-      <h4>No Todos Yet</h4>
+      <li style={{ ...style }}>{todo.title}</li>
+      <button onClick={() => completedTodo(todo.id)}>Completed</button>
+      <button onClick={() => removeTodo(todo.id)}>Delete</button>
     </div>
   );
 };
 
-export default Todo;
+export default TodoItems;
