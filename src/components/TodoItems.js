@@ -1,13 +1,18 @@
-import React, { useContext, useState } from "react";
-import { TodoContext } from "../context/TodoContext";
+import React from "react";
 
-const TodoItems = ({ todo }) => {
-  const { removeTodo, completedTodo } = useContext(TodoContext);
-  const [completed, setCompleted] = useState([]);
+const TodoItems = (props) => {
+  const { todo, completedTodo, removeTodo } = props;
+  const completedStyle = {
+    textDecoration: "line-through",
+  };
+  const notCompletedStyle = {
+    textDecoration: "none",
+  };
+  const style = todo.completed ? completedStyle : notCompletedStyle;
 
   return (
     <div>
-      <li>{todo.title}</li>
+      <li style={{ ...style }}>{todo.title}</li>
       <button onClick={() => completedTodo(todo.id)}>Completed</button>
       <button onClick={() => removeTodo(todo.id)}>Delete</button>
     </div>

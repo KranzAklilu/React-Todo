@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
-import { TodoContext } from "../context/TodoContext";
+import React, { useState } from "react";
 
 const Form = (props) => {
-  const { todos, addTodo } = useContext(TodoContext);
+  const { addTodo } = props;
   const [input, setInput] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
